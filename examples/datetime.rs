@@ -17,7 +17,7 @@ struct Time {
 }
 
 #[derive(Debug, PartialEq, PartialOrd)]
-struct DateTime {
+struct Datetime {
     date: Date,
     time: Time,
 }
@@ -77,16 +77,16 @@ where
         })
 }
 
-fn date_time<Input>() -> impl Parser<Input, Output = DateTime>
+fn datetime<Input>() -> impl Parser<Input, Output = Datetime>
 where
     Input: Stream<Token = char>,
     Input::Error: ParseError<Input::Token, Input::Range, Input::Position>,
 {
     (date(), optional(char('T')), time(), optional(char('Z')))
-        .map(|(date, _, time, _)| DateTime { date, time })
+        .map(|(date, _, time, _)| Datetime { date, time })
 }
 
 fn main() {
-    let result = date_time().easy_parse("2000-01-01T01:02:03Z");
+    let result = datetime().easy_parse("2000-01-01T01:02:03Z");
     println!("{:?}", result.unwrap().0);
 }
