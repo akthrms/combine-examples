@@ -88,5 +88,5 @@ where
 
 fn main() {
     let result = datetime().easy_parse("2000-01-01T01:02:03Z");
-    println!("{:?}", result.unwrap().0);
+    println!("{:?}", result);
 }
